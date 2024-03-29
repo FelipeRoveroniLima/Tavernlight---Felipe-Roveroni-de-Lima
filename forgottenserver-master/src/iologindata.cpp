@@ -94,8 +94,7 @@ bool IOLoginData::loginserverAuthentication(const std::string& name, const std::
 
 std::pair<uint32_t, uint32_t> IOLoginData::gameworldAuthentication(std::string_view accountName,
                                                                    std::string_view password,
-                                                                   std::string_view characterName,
-                                                                   std::string_view token, uint32_t tokenTime)
+                                                                   std::string_view characterName) // removed token parameters from 2FA
 {
 	Database& db = Database::getInstance();
 	DBResult_ptr result = db.storeQuery(fmt::format(
@@ -105,22 +104,7 @@ std::pair<uint32_t, uint32_t> IOLoginData::gameworldAuthentication(std::string_v
 		return {};
 	}
 
-	// two-factor auth
-	if (g_config.getBoolean(ConfigManager::TWO_FACTOR_AUTH)) {
-		std::string secret = decodeSecret(result->getString("secret"));
-		if (!secret.empty()) {
-			if (token.empty()) {
-				return {};
-			}
-
-			bool tokenValid = token == generateToken(secret, tokenTime) ||
-			                  token == generateToken(secret, tokenTime - 1) ||
-			                  token == generateToken(secret, tokenTime + 1);
-			if (!tokenValid) {
-				return {};
-			}
-		}
-	}
+	// removed token verification
 
 	if (transformToSHA1(password) != result->getString("password")) {
 		return {};

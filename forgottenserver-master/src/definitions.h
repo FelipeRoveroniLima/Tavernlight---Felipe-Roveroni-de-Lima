@@ -8,9 +8,10 @@ static constexpr auto STATUS_SERVER_NAME = "The Forgotten Server";
 static constexpr auto STATUS_SERVER_VERSION = "1.5";
 static constexpr auto STATUS_SERVER_DEVELOPERS = "The Forgotten Server Team";
 
-static constexpr auto CLIENT_VERSION_MIN = 1310;
-static constexpr auto CLIENT_VERSION_MAX = 1311;
-static constexpr auto CLIENT_VERSION_STR = "13.10";
+// Changed the server version to the old protocol
+static constexpr auto CLIENT_VERSION_MIN = 1010;    // it starts at 10.10
+static constexpr auto CLIENT_VERSION_MAX = 1099;    // finishes at 10.99
+static constexpr auto CLIENT_VERSION_STR = "10.98"; // the client version that was used was 10.98
 
 static constexpr auto AUTHENTICATOR_DIGITS = 6U;
 static constexpr auto AUTHENTICATOR_PERIOD = 30U;
